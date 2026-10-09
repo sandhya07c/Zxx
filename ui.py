@@ -52,14 +52,9 @@ try:
 except ImportError:
     _WEBENGINE = False
 
-# ── Which CHIDVI this is ───────────────────────────────────────────────────────
-# One constant, read by the window title, the header badge and the PROTOCOL
-# panel. It used to be typed separately in each of those places, and they drifted:
-# CHIDVI 52 and 556 shipped showing "PROTOCOL XLIX" — the number from CHIDVI 49 — and
-# CHIDVI 55 shipped titled "CHIDVI 54". Deriving the protocol from the name means a
-# release bump is this one line.
-APP_VERSION  = "CHIDVI 556"
-APP_PROTOCOL = APP_VERSION.split()[-1]
+# ── Application identity ──────────────────────────────────────────────────────
+# Single source for the visible window title and header badge.
+APP_VERSION = "SANU07"
 
 def _base_dir() -> Path:
     if getattr(sys, "frozen", False):
@@ -657,7 +652,7 @@ class HudCanvas(QWidget):
         p.setPen(QPen(qcol(C.ACC, sa // 2), 1.5))
         p.drawArc(srect, int(self._scan2 * 16), int(ex * 16))
 
-        # tick CHIDVIs
+        # tick SANU07s
         t_out, t_in = fw * 0.497, fw * 0.474
         p.setPen(QPen(qcol(C.PRI, 140), 1))
         for deg in range(0, 360, 10):
@@ -1085,7 +1080,7 @@ class FileDropZone(QWidget):
         self._drag_over = False
         urls = [u for u in e.mimeData().urls() if u.isLocalFile()]
         if urls:
-            # CHIDVI uses one active working file at a time; take the first
+            # SANU07 uses one active working file at a time; take the first
             # dropped local file and validate it before accepting it.
             self._set_file(urls[0].toLocalFile())
             e.acceptProposedAction()
@@ -2833,7 +2828,7 @@ class RemoteKeyOverlay(QWidget):
         if remaining == 0:
             self._do_close()
 
-    def CHIDVI_connected(self) -> None:
+    def SANU07_connected(self) -> None:
         """Call from any thread when a phone successfully connects."""
         self._ctimer.stop()
         self._key_lbl.setText("CONNECTED")
@@ -3698,7 +3693,7 @@ class MainWindow(QMainWindow):
                 y2 = cy + int(R_outer * math.sin(angle))
                 d.line([x1, y1, x2, y2], fill=(*GLOW, 200), width=spoke_w)
 
-            # ── 6 tick CHIDVIs on outer ring ────────────────────────────────
+            # ── 6 tick SANU07s on outer ring ────────────────────────────────
             for i in range(6):
                 angle = math.radians(i * 60)
                 for dr in range(lw * 2):
@@ -4110,7 +4105,7 @@ class MainWindow(QMainWindow):
         w=QWidget(); w.setFixedHeight(70); w.setStyleSheet(f"background:{C.DARK}; border-bottom:1px solid {C.BORDER_B};")
         lay=QHBoxLayout(w); lay.setContentsMargins(22,7,22,7); lay.setSpacing(16)
         brand=QVBoxLayout(); brand.setSpacing(0)
-        self._title_lbl=QLabel("CHIDVI-556"); self._title_lbl.setFont(QFont("Segoe UI",18,QFont.Weight.Bold)); self._title_lbl.setStyleSheet(f"color:{C.PRI};background:transparent;"); brand.addWidget(self._title_lbl)
+        self._title_lbl=QLabel("SANU07"); self._title_lbl.setFont(QFont("Segoe UI",18,QFont.Weight.Bold)); self._title_lbl.setStyleSheet(f"color:{C.PRI};background:transparent;"); brand.addWidget(self._title_lbl)
         self._sub_lbl=QLabel("AI COMPANION  ·  AGI RESEARCH PROTOTYPE"); self._sub_lbl.setFont(QFont("Segoe UI",7)); self._sub_lbl.setStyleSheet(f"color:{C.TEXT_MED};background:transparent;"); brand.addWidget(self._sub_lbl); lay.addLayout(brand)
         nav=QHBoxLayout(); nav.setSpacing(4)
         for i,t in enumerate(["HOME","AGENT","MEMORY","PLUGINS","VISION","PHONE","SETTINGS"]):
@@ -4221,7 +4216,7 @@ class MainWindow(QMainWindow):
             b=QPushButton(txt); b.setFixedHeight(30); b.setCursor(Qt.CursorShape.PointingHandCursor); b.setFont(QFont("Segoe UI",7,QFont.Weight.Bold)); b.setStyleSheet(btn_css if 'btn_css' in locals() else f"QPushButton{{color:{C.TEXT_MED};background:rgba(0,18,30,190);border:1px solid {C.BORDER};border-radius:6px;}} QPushButton:hover{{color:{C.PRI};border-color:{C.PRI_DIM};}}") ; b.clicked.connect(slot); row.addWidget(b)
         l.addLayout(row); lay.addWidget(f)
 
-        quote=QLabel("“A more human tomorrow\nwith artificial intelligence.”\n\n— CHIDVI-556"); quote.setAlignment(Qt.AlignmentFlag.AlignCenter); quote.setFont(QFont("Segoe UI",9)); quote.setStyleSheet(f"color:{C.TEXT_MED};background:rgba(0,12,22,180);border:1px solid {C.BORDER};border-radius:10px;padding:14px;"); lay.addWidget(quote)
+        quote=QLabel("“A more human tomorrow\nwith artificial intelligence.”\n\n— SANU07"); quote.setAlignment(Qt.AlignmentFlag.AlignCenter); quote.setFont(QFont("Segoe UI",9)); quote.setStyleSheet(f"color:{C.TEXT_MED};background:rgba(0,12,22,180);border:1px solid {C.BORDER};border-radius:10px;padding:14px;"); lay.addWidget(quote)
         return w
 
     def _build_quick_drawer(self) -> QWidget:
@@ -4706,7 +4701,7 @@ class MainWindow(QMainWindow):
 
     def notify_phone_connected(self) -> None:
         if self._remote_overlay and self._remote_overlay.isVisible():
-            self._remote_overlay.CHIDVI_connected()
+            self._remote_overlay.SANU07_connected()
 
     def _open_remote(self):
         if not self.on_remote_clicked:

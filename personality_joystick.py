@@ -1,4 +1,4 @@
-"""Hold-and-drag personality joystick for CHIDVI-556.
+"""Hold-and-drag personality joystick for SANU07.
 
 The widget discovers personality profiles dynamically and never owns a separate
 personality registry. The small control lives in the bottom-right corner.
