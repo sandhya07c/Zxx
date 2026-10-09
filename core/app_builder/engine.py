@@ -20,7 +20,7 @@ from google import genai
 from google.genai import types
 
 
-DEFAULT_MODEL = os.getenv("Zx_BUILDER_MODEL", "gemini-2.5-flash")
+DEFAULT_MODEL = os.getenv("ZX_BUILDER_MODEL", "gemini-2.5-flash")
 DEFAULT_ROOT = Path.home() / "Desktop" / "JarvisProjects"
 MAX_FILES = 45
 MAX_REPAIRS = 3
@@ -55,7 +55,7 @@ def _slug(value: str) -> str:
 def _api_key(base_dir: Path) -> str:
     for path in (
         base_dir / "config" / "api_keys.json",
-        Path.home() / ".config" / "Zx" / "api_keys.json",
+        Path.home() / ".config" / "zx" / "api_keys.json",
     ):
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
@@ -494,7 +494,7 @@ Fix only the root cause. Do not change unrelated files.
         except Exception as exc:
             return {"ok": False, "message": f"Playwright is unavailable: {exc}"}
 
-        port = int(os.getenv("Zx_BUILDER_PORT", "3180"))
+        port = int(os.getenv("ZX_BUILDER_PORT", "3180"))
         zx_dir = project_dir / ".zx"
         zx_dir.mkdir(parents=True, exist_ok=True)
         log_path = zx_dir / "dev_server.log"
