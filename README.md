@@ -1,8 +1,8 @@
-# ⚡ SANU07
+# ⚡ Zx
 
-**SANU07 is a local-first AI desktop companion and experimental AI command center** built with Python and PyQt6. It combines a desktop HUD, voice interaction through Google's Gemini API, memory, and a modular set of actions and plugins for working with files, browsers, desktop applications, web projects, Android devices, and Blender.
+**Zx is a local-first AI desktop companion and experimental AI command center** built with Python and PyQt6. It combines a desktop HUD, voice interaction through Google's Gemini API, memory, and a modular set of actions and plugins for working with files, browsers, desktop applications, web projects, Android devices, and Blender.
 
-SANU07 explores more autonomous, multi-step AI workflows. It is an evolving research/development prototype—not a claim of real AGI or ASI. Capabilities vary with the configured model, API access, operating system, installed dependencies, connected devices, and enabled plugins.
+Zx explores more autonomous, multi-step AI workflows. It is an evolving research/development prototype—not a claim of real AGI or ASI. Capabilities vary with the configured model, API access, operating system, installed dependencies, connected devices, and enabled plugins.
 
 ## 🧠 What it does
 
@@ -14,13 +14,13 @@ SANU07 explores more autonomous, multi-step AI workflows. It is an evolving rese
 - **Optional integrations:** wireless Android control through a companion service, plus a local authenticated Blender bridge.
 - **Interaction safeguards:** some sensitive or destructive operations use confirmation gates; review each action and its permissions.
 
-## 🔄 How SANU07 works
+## 🔄 How Zx works
 
 ```text
 User (voice / interaction)
           |
           v
-SANU07 Desktop UI (PyQt6 HUD)
+Zx Desktop UI (PyQt6 HUD)
           |
           v
 Conversation Runtime (Gemini API)
@@ -53,8 +53,8 @@ The action and plugin layers are modular. Optional integrations may require thei
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/chidvielasparepalli/SAN07.git
-cd SAN07
+git clone https://github.com/chidvielasparepalli/SAN07.git Zx
+cd Zx
 
 py -3.11 -m venv .venv
 .\.venv\Scripts\Activate.ps1
@@ -75,8 +75,8 @@ If PowerShell blocks environment activation, either enable scripts for your curr
 ### macOS / Linux
 
 ```bash
-git clone https://github.com/chidvielasparepalli/SAN07.git
-cd SAN07
+git clone https://github.com/chidvielasparepalli/SAN07.git Zx
+cd Zx
 
 python3.11 -m venv .venv
 source .venv/bin/activate
@@ -136,15 +136,15 @@ SAN07/
 The action name is `app_builder`. Its supported operations are `start`, `resume`, `status`, and `cancel`. Generated projects are created outside this repository; build verification may use Node.js/npm and Playwright/Chromium.
 
 Optional environment settings:
-- `SANU07_BUILDER_MODEL` — model used by the app builder (default: `gemini-2.5-flash`).
-- `SANU07_BUILDER_PORT` — local preview port (default: `3180`).
+- `Zx_BUILDER_MODEL` — model used by the app builder (default: `gemini-2.5-flash`).
+- `Zx_BUILDER_PORT` — local preview port (default: `3180`).
 - `GEMINI_API_KEY` — can supply the Gemini key to the builder when configured that way.
 
-Builder state and logs are stored under the generated project's `.sanu07/` directory.
+Builder state and logs are stored under the generated project's `.zx/` directory.
 
 ### Personality voice IDs
 
-The optional ElevenLabs voices can be configured with `SANU07_VOICE_WEDNESDAY`, `SANU07_VOICE_TONY`, and `SANU07_VOICE_DEADPOOL`. These are optional and only relevant when using those voice profiles with ElevenLabs configured.
+The optional ElevenLabs voices can be configured with `Zx_VOICE_WEDNESDAY`, `Zx_VOICE_TONY`, and `Zx_VOICE_DEADPOOL`. These are optional and only relevant when using those voice profiles with ElevenLabs configured.
 
 ### Android control
 
@@ -165,4 +165,4 @@ Blender integration uses a local HTTP bridge with an HMAC signature. See [the Bl
 
 ## 📌 Project status
 
-SANU07 is actively evolving. Some components are reusable utilities; others are prototypes that need real-environment testing. Build capabilities incrementally, verify results, and keep the user in control of sensitive decisions.
+Zx is actively evolving. Some components are reusable utilities; others are prototypes that need real-environment testing. Build capabilities incrementally, verify results, and keep the user in control of sensitive decisions.
