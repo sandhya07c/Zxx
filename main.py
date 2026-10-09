@@ -131,7 +131,7 @@ def _load_system_prompt() -> str:
         return PROMPT_PATH.read_text(encoding="utf-8")
     except Exception:
         return (
-            "You are SANU07, a personal AI assistant. "
+            "You are Zx, a personal AI assistant. "
             "The active personality profile controls your communication style, "
             "while core instructions, safety, honesty, and task requirements always win. "
             "Be concise, direct, and always use the provided tools to complete tasks. "
@@ -239,7 +239,7 @@ TOOL_DECLARATIONS = [
     {
         "name": "switch_personality",
         "description": (
-            "Switch SANU07's active personality when the user explicitly asks to change personality, "
+            "Switch Zx's active personality when the user explicitly asks to change personality, "
             "activate a named persona, or asks which personalities are available. "
             "Use action='switch' with the requested personality name, action='list' to list available "
             "personalities, and action='current' to report the active personality. "
@@ -1241,7 +1241,7 @@ class JarvisLive:
                                     ]},
                                     turn_complete=True,
                                 )
-                                # SANU07 next turn_complete behaviour depending on angle
+                                # Zx next turn_complete behaviour depending on angle
                                 if self._vision_cam_active:
                                     # Camera: keep busy until JARVIS finishes speaking the answer
                                     self._vision_cam_active    = False
@@ -1599,7 +1599,7 @@ class JarvisLive:
             if not self._proactive.should_trigger(self._last_user_speech):
                 continue
 
-            self._proactive.SANU07_triggered()
+            self._proactive.zx_triggered()
 
             try:
                 memory       = await asyncio.to_thread(load_memory)
