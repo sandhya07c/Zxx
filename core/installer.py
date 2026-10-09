@@ -1,5 +1,5 @@
 """
-SANU07 XL — Dependency auto-installer.
+Zx XL — Dependency auto-installer.
 
 Called automatically on first launch and after engine reconfiguration.
 Installs only the packages that are actually missing, then exits cleanly.

@@ -1,6 +1,6 @@
-"""SANU07 autonomous full-stack web application builder.
+"""Zx autonomous full-stack web application builder.
 
-Generated projects live outside the SANU07 repository. Builder state never stores
+Generated projects live outside the Zx repository. Builder state never stores
 secret values. The builder can plan, ask for missing information, generate files,
 run a production build, open the app in Playwright, inspect the result, and repair
 bounded failures before delivering the project.
@@ -20,7 +20,7 @@ from google import genai
 from google.genai import types
 
 
-DEFAULT_MODEL = os.getenv("SANU07_BUILDER_MODEL", "gemini-2.5-flash")
+DEFAULT_MODEL = os.getenv("Zx_BUILDER_MODEL", "gemini-2.5-flash")
 DEFAULT_ROOT = Path.home() / "Desktop" / "JarvisProjects"
 MAX_FILES = 45
 MAX_REPAIRS = 3
@@ -49,13 +49,13 @@ class BuilderResult:
 
 def _slug(value: str) -> str:
     value = re.sub(r"[^a-zA-Z0-9]+", "-", (value or "").strip()).strip("-").lower()
-    return (value or "sanu07-app")[:64]
+    return (value or "Zx-app")[:64]
 
 
 def _api_key(base_dir: Path) -> str:
     for path in (
         base_dir / "config" / "api_keys.json",
-        Path.home() / ".config" / "sanu07" / "api_keys.json",
+        Path.home() / ".config" / "Zx" / "api_keys.json",
     ):
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
@@ -67,7 +67,7 @@ def _api_key(base_dir: Path) -> str:
     key = os.getenv("GEMINI_API_KEY", "").strip()
     if key:
         return key
-    raise RuntimeError("Gemini API key is missing. Configure SANU07's Gemini key first.")
+    raise RuntimeError("Gemini API key is missing. Configure Zx's Gemini key first.")
 
 
 def _strip_fences(text: str) -> str:
@@ -134,7 +134,7 @@ class AppBuilder:
 
     @staticmethod
     def _state_path(project_dir: Path) -> Path:
-        return project_dir / ".sanu07" / "builder_state.json"
+        return project_dir / ".zx" / "builder_state.json"
 
     @classmethod
     def _load_state(cls, project_dir: Path) -> dict[str, Any]:
@@ -171,7 +171,7 @@ class AppBuilder:
 
     def _plan(self, request: str, answers: dict[str, str]) -> dict[str, Any]:
         prompt = f"""
-You are the principal product architect for SANU07.
+You are the principal product architect for Zx.
 
 USER REQUEST:
 {request}
@@ -266,7 +266,7 @@ Rules:
 
     def _ensure_gitignore(self, project_dir: Path) -> None:
         (project_dir / ".gitignore").write_text(
-            "node_modules\n.next\n.env\n.env.local\n.env.*.local\n!.env.example\n.DS_Store\ndist\ncoverage\n.sanu07/*.log\n.sanu07/preview.png\n",
+            "node_modules\n.next\n.env\n.env.local\n.env.*.local\n!.env.example\n.DS_Store\ndist\ncoverage\n.zx/*.log\n.zx/preview.png\n",
             encoding="utf-8",
         )
 
@@ -288,7 +288,7 @@ Rules:
             return BuilderResult(False, "ERROR", "Tell me what website you want me to build.")
 
         plan = self._plan(request, {})
-        slug = _slug(str(plan.get("slug") or plan.get("project_name") or "sanu07-app"))
+        slug = _slug(str(plan.get("slug") or plan.get("project_name") or "Zx-app"))
         project_dir = self.root_dir / slug
 
         if project_dir.exists() and self._state_path(project_dir).exists():
@@ -343,7 +343,7 @@ Rules:
             return BuilderResult(False, "WAITING_FOR_USER", "I still need the requested information.", str(project_dir), {"question": pending})
 
         if pending.get("kind") == "secret":
-            secret_name = str(pending.get("name") or pending.get("id") or "SANU07_SECRET").upper()
+            secret_name = str(pending.get("name") or pending.get("id") or "ZX_SECRET").upper()
             self._write_env(project_dir, secret_name, answer)
             state.setdefault("provided_secrets", [])
             if secret_name not in state["provided_secrets"]:
@@ -455,7 +455,7 @@ Rules:
         files = [
             p.as_posix()
             for p in project_dir.rglob("*")
-            if p.is_file() and ".sanu07" not in p.parts and "node_modules" not in p.parts
+            if p.is_file() and ".zx" not in p.parts and "node_modules" not in p.parts
         ]
         prompt = f"""
 You are debugging a real generated web application.
@@ -494,10 +494,10 @@ Fix only the root cause. Do not change unrelated files.
         except Exception as exc:
             return {"ok": False, "message": f"Playwright is unavailable: {exc}"}
 
-        port = int(os.getenv("SANU07_BUILDER_PORT", "3180"))
-        sanu07_dir = project_dir / ".sanu07"
-        sanu07_dir.mkdir(parents=True, exist_ok=True)
-        log_path = sanu07_dir / "dev_server.log"
+        port = int(os.getenv("Zx_BUILDER_PORT", "3180"))
+        zx_dir = project_dir / ".zx"
+        zx_dir.mkdir(parents=True, exist_ok=True)
+        log_path = zx_dir / "dev_server.log"
         handle = log_path.open("w", encoding="utf-8")
         proc = None
         try:
@@ -545,7 +545,7 @@ Fix only the root cause. Do not change unrelated files.
                 page.on("console", lambda msg: console_errors.append(msg.text) if msg.type == "error" else None)
                 page.on("pageerror", lambda exc: console_errors.append(str(exc)))
                 page.goto(url, wait_until="domcontentloaded", timeout=30000)
-                screenshot_path = sanu07_dir / "preview.png"
+                screenshot_path = zx_dir / "preview.png"
                 page.screenshot(path=str(screenshot_path), full_page=True)
                 body_text = page.locator("body").inner_text(timeout=10000)
                 title = page.title()

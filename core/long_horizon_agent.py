@@ -1,4 +1,4 @@
-"""Long-horizon autonomous agent for SANU07."""
+"""Long-horizon autonomous agent for Zx."""
 from __future__ import annotations
 import json
 from pathlib import Path
@@ -28,7 +28,7 @@ class LongHorizonAgent:
     def _planner_prompt(self, objective: str) -> str:
         tools = self.registry.get_tool_declarations()
         history = json.dumps(self.history[-12:], ensure_ascii=False, default=str)
-        return f"""You are SANU07's long-horizon task planner.
+        return f"""You are Zx's long-horizon task planner.
 USER OBJECTIVE:\n{objective}
 AVAILABLE REAL TOOLS:\n{json.dumps(tools, ensure_ascii=False)}
 EXECUTION HISTORY:\n{history}

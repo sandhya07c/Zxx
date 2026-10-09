@@ -1,4 +1,4 @@
-"""SANU07 autonomous full-stack application builder."""
+"""Zx autonomous full-stack application builder."""
 
 from .engine import AppBuilder
 

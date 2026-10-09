@@ -1,5 +1,5 @@
 """
-Speech-to-Text engines for SANU07 XL.
+Speech-to-Text engines for Zx XL.
 
 Whisper  – offline transcription via faster-whisper (VAD-buffered)
 Vosk     – offline streaming transcription (lighter)

@@ -1,5 +1,5 @@
 """
-Text-to-Speech engines for SANU07 XL.
+Text-to-Speech engines for Zx XL.
 
 EdgeTTS     – free Microsoft TTS (internet required, no API key)
 Kokoro      – fully offline neural TTS (~330 MB model)
@@ -459,7 +459,7 @@ def create_tts_player(config: dict) -> TTSPlayer:
         if not voice_id:
             raise RuntimeError(
                 "ElevenLabs selected but the active personality has no voice_id. "
-                "Set its SANU07_VOICE_* environment variable."
+                "Set its Zx_VOICE_* environment variable."
             )
 
         engine = ElevenLabsTTSEngine(api_key=api_key, voice_id=voice_id)
