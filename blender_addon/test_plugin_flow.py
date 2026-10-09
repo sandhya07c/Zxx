@@ -1,7 +1,7 @@
 """
 test_plugin_flow.py — drive the blender_control PLUGIN's public `run()` entry
 (no Gemini) end-to-end against the live bridge. Proves the plugin executes a
-multi-step general modeling task through the exact tool the SANU07 agent
+multi-step general modeling task through the exact tool the Zx agent
 selects: create primitives → transform → materials → light → camera → render →
 verify. Pure stdlib; depends on a running bridge (headless_driver.py or GUI).
 """
@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import blender_control as bc
 
-OUT = Path("D:/SANU07-test-output")
+OUT = Path("D:/Zx-test-output")
 
 
 def logline(tag, msg):
@@ -65,9 +65,9 @@ def main() -> int:
         ("create_camera",    {"location": [5, -4, 2], "aim_at": [0, 0, 0], "name": "Cam"}),
         # render prefs + render (heavy → confirm gate bypassed by hook)
         ("set_render",       {"engine": "eevee", "resolution_x": 400, "resolution_y": 400}),
-        ("render",           {"image_path": "D:/SANU07-test-output/rocket.png", "samples": 16}),
+        ("render",           {"image_path": "D:/Zx-test-output/rocket.png", "samples": 16}),
         # save + verify
-        ("save_blend",       {"path": "D:/SANU07-test-output/rocket.blend"}),
+        ("save_blend",       {"path": "D:/Zx-test-output/rocket.blend"}),
         ("scene_info",       {}),
         ("list_objects",     {}),
     ]
