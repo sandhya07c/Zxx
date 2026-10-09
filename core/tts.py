@@ -459,7 +459,7 @@ def create_tts_player(config: dict) -> TTSPlayer:
         if not voice_id:
             raise RuntimeError(
                 "ElevenLabs selected but the active personality has no voice_id. "
-                "Set its Zx_VOICE_* environment variable."
+                "Set its ZX_VOICE_* environment variable."
             )
 
         engine = ElevenLabsTTSEngine(api_key=api_key, voice_id=voice_id)
