@@ -1,461 +1,168 @@
-# ⚡ CHIDVI-556
+# ⚡ SANU07
 
-<p align="center"><img src="https://kommodo.ai/i/02tMX9tzYywhaBL1DJM1" alt="CHIDVI-556 interface" width="100%"></p>
+**SANU07 is a local-first AI desktop companion and experimental AI command center** built with Python and PyQt6. It combines a desktop HUD, voice interaction through Google's Gemini API, memory, and a modular set of actions and plugins for working with files, browsers, desktop applications, web projects, Android devices, and Blender.
 
-> **AI Companion • Autonomous AI Command Center • AGI Research Prototype**
+SANU07 explores more autonomous, multi-step AI workflows. It is an evolving research/development prototype—not a claim of real AGI or ASI. Capabilities vary with the configured model, API access, operating system, installed dependencies, connected devices, and enabled plugins.
 
-CHIDVI-556 is the next evolution of CHIDVI-555 — a persistent AI system designed to move beyond simple question-and-answer interaction toward **goal-driven execution, memory, tool use, observation, verification, and recovery**.
+## 🧠 What it does
 
-> **Research note:** CHIDVI-556 is an evolving prototype exploring autonomous-agent and AGI-oriented architecture. It does not claim to be AGI or ASI.
+- **Voice-first interaction:** a PyQt6 desktop interface with listening, thinking, speaking, and system-status feedback.
+- **AI conversation:** Gemini-powered conversation and action selection.
+- **Memory:** a memory manager for retrieving and storing useful context across sessions.
+- **Actions and plugins:** modular tools for browser/computer work, file operations, research, media, and other tasks.
+- **Application building:** an experimental app-builder that can generate a web project, install its dependencies, build it, and verify it with a browser when the needed tools are installed.
+- **Optional integrations:** wireless Android control through a companion service, plus a local authenticated Blender bridge.
+- **Interaction safeguards:** some sensitive or destructive operations use confirmation gates; review each action and its permissions.
 
----
-
-## 🧠 Vision
-
-The long-term direction is to build an AI operating layer that can understand a high-level objective, plan the work, use available tools, observe what happened, correct failures, learn useful context, and continue until the task is complete or requires human input.
-
-```text
-Goal
-  ↓
-Understand
-  ↓
-Plan
-  ↓
-Execute
-  ↓
-Evaluate
-  ↓
-Correct
-  ↓
-Learn
-  ↓
-Repeat
-```
-
-The core idea is simple: **don't just answer the user — help accomplish the objective.**
-
----
-
-## 🚀 Current Capabilities
-
-| System | Capability |
-|---|---|
-| 🎙️ Voice | Conversational voice interaction and narrated actions |
-| 🧠 Memory | Persistent long-term memory across sessions |
-| 🤖 Autonomy | Bounded goal-driven task execution |
-| 🌐 Browser | Browser and computer interaction |
-| 🔌 Plugins | Auto-discovered plugin architecture |
-| 🛠️ Actions | Auto-discovered executable tools |
-| 📝 Forms | Memory-aware form assistance |
-| 🖼️ Images | Gemini-powered image generation |
-| 📱 Android | Wireless phone control through companion HTTP service |
-| 🎮 Desktop | Application and desktop control |
-| 🧊 Blender | Blender / 3D scene automation integration |
-
----
-
-## 🤖 Autonomous Agent
-
-CHIDVI-556 can accept an **objective** instead of only a single command.
-
-For example:
-
-> "Open this website, find the registration form, fill the fields you already know, and tell me what information is missing."
-
-The autonomous runner follows a bounded execution loop:
+## 🔄 How SANU07 works
 
 ```text
-Objective
-   ↓
-Plan next action
-   ↓
-Execute tool
-   ↓
-Observe result
-   ↓
-Evaluate progress
-   ↓
-Re-plan
-   ↓
-Verify completion
+User (voice / interaction)
+          |
+          v
+SANU07 Desktop UI (PyQt6 HUD)
+          |
+          v
+Conversation Runtime (Gemini API)
+          |
+          v
+Action & Plugin Discovery / Dispatch
+          |
+          +---- Memory and context
+          +---- Browser / desktop / file tools
+          +---- Web research / media / app builder
+          +---- Optional Android companion bridge
+          +---- Optional Blender bridge
+          |
+          v
+Results, status updates, and assistant response
 ```
 
-Execution is intentionally bounded to prevent uncontrolled loops and recursive self-invocation.
+The action and plugin layers are modular. Optional integrations may require their own applications, credentials, companion services, permissions, or dependencies.
 
----
+## 🚀 Quick start
 
-## 🧠 Persistent Memory
+### Requirements
 
-CHIDVI-556 includes a long-term memory layer for reusable context such as:
+- Git
+- Python **3.11** recommended (the repository's CI workflow uses Python 3.11)
+- A working microphone and speakers/headphones for voice interaction
+- A Gemini API key for the Gemini-powered runtime
+- Windows, macOS, or Linux; individual automation features may be platform-specific
 
-- Identity information
-- User preferences
-- Projects
-- Relationships
-- Wishes and goals
-- Useful notes
-- Session summaries
+### Windows (PowerShell)
 
-Memory is intended to make the agent more consistent across conversations and autonomous tasks.
+```powershell
+git clone https://github.com/chidvielasparepalli/SAN07.git
+cd SAN07
 
-The system should **never invent personal information** when memory does not contain a reliable answer.
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
 
----
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 
-## 📝 Memory-Aware Form Agent
+python main.py
+```
 
-The form-agent prototype combines browser interaction with long-term memory.
+If PowerShell blocks environment activation, either enable scripts for your current user according to your device's policy or run the virtual-environment Python directly:
 
-Workflow:
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe main.py
+```
+
+### macOS / Linux
+
+```bash
+git clone https://github.com/chidvielasparepalli/SAN07.git
+cd SAN07
+
+python3.11 -m venv .venv
+source .venv/bin/activate
+
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+
+python main.py
+```
+
+### First-run configuration
+
+The runtime reads the Gemini credential from `config/api_keys.json` using the `gemini_api_key` setting. Use the app's configuration flow if prompted, or add the key to the existing local configuration without deleting other settings:
+
+```json
+{
+  "gemini_api_key": "YOUR_GEMINI_API_KEY"
+}
+```
+
+Replace the placeholder with your key. **Never commit API keys, OAuth tokens, or other secrets.** Keep the real configuration local and do not paste secrets into issues or logs.
+
+## 🧪 Verify the repository
+
+Run these commands from the repository root with the virtual environment active:
+
+```powershell
+python -m compileall -q actions core tests main.py ui.py
+python -m unittest discover -s tests -v
+```
+
+The checked-in unit tests currently cover app-builder utility functions. These commands are useful sanity checks but do not prove that every model, optional integration, device, or UI workflow works on every machine.
+
+## 🧩 Project layout
 
 ```text
-Open URL
-   ↓
-Inspect form
-   ↓
-Understand fields
-   ↓
-Search memory
-   ↓
-Fill confidently known fields
-   ↓
-Ask user for missing / ambiguous information
-   ↓
-Remember reusable answers
-   ↓
-Verify form state
-   ↓
-Request confirmation for sensitive submission
+SAN07/
+├── actions/               # Callable actions and task helpers
+├── core/                  # Runtime, model clients, orchestration, TTS/STT
+├── config/                # Local runtime configuration and media assets
+├── memory/                # Persistent memory manager
+├── plugins/               # Optional tools and external integrations
+├── Personality/           # Personality profiles and loader
+├── blender_addon/         # Blender bridge, installer, and checks
+├── dashboard/             # Optional remote dashboard
+├── tests/                 # Unit tests
+├── main.py                # Application entry point
+├── ui.py                  # PyQt6 interface
+├── requirements.txt       # Python dependencies
+└── README.md               # Main project guide
 ```
 
-The goal is to make repetitive web forms feel more like a conversation with an assistant than manual data entry.
+## 🔌 Optional integrations and configuration
 
----
+### App builder
 
-## 🌐 Browser & Computer Control
+The action name is `app_builder`. Its supported operations are `start`, `resume`, `status`, and `cancel`. Generated projects are created outside this repository; build verification may use Node.js/npm and Playwright/Chromium.
 
-CHIDVI-556 can use browser/computer actions as part of larger tasks rather than treating each action as an isolated command.
+Optional environment settings:
+- `SANU07_BUILDER_MODEL` — model used by the app builder (default: `gemini-2.5-flash`).
+- `SANU07_BUILDER_PORT` — local preview port (default: `3180`).
+- `GEMINI_API_KEY` — can supply the Gemini key to the builder when configured that way.
 
-The architecture is designed around discoverable tools so new capabilities can be added without rewriting the entire agent.
+Builder state and logs are stored under the generated project's `.sanu07/` directory.
 
----
+### Personality voice IDs
 
-## 🔌 Plugin & Action Architecture
+The optional ElevenLabs voices can be configured with `SANU07_VOICE_WEDNESDAY`, `SANU07_VOICE_TONY`, and `SANU07_VOICE_DEADPOOL`. These are optional and only relevant when using those voice profiles with ElevenLabs configured.
 
-CHIDVI-556 automatically discovers capabilities from the project structure.
+### Android control
 
-```text
-plugins/
-   ├── plugin_a.py
-   ├── plugin_b.py
-   └── ...
+Android control requires the companion service on the phone and the desktop/phone to be able to reach each other over the configured local network or Tailscale connection. Follow the plugin's setup and permission requirements before use.
 
-actions/
-   ├── action_a.py
-   ├── action_b.py
-   └── ...
-```
+### Blender / 3D control
 
-Each capability exposes structured metadata and a handler that can be selected by the agent.
+Blender integration uses a local HTTP bridge with an HMAC signature. See [the Blender integration guide](docs/BLENDER_INTEGRATION.md) for installation, configuration, protocol, and troubleshooting. Keep the bridge bound to localhost unless you deliberately configure a secured network setup.
 
-This makes the system modular and allows new tools to become available to the autonomous layer without hard-coding every capability into the core loop.
+## 🛡️ Safety and limitations
 
----
-
-## 🖼️ Gemini Image Generation
-
-The `create_image` action provides Gemini-powered image generation with:
-
-- Multiple aspect ratios
-- Multiple output sizes
-- Local image saving
-- Progress narration
-- Optional opening of generated images
-
-Example:
-
-> "Create a cinematic 16:9 futuristic AI command center."
-
-Generated assets are stored under `generated_images/`.
-
----
-
-## 📱 Wireless Android Control
-
-CHIDVI-556 includes a wireless-control plugin designed to communicate with an Android companion service over a local network or Tailscale connection.
-
-Supported operations include:
-
-- Connection / device checks
-- App launching
-- Tap
-- Swipe
-- Text input
-- Key events
-- Screenshots
-- Home / Back
-- Notifications
-
-```text
-CHIDVI Agent
-     ↓
-wireless_control.py
-     ↓
-HTTP / authenticated bridge
-     ↓
-Android Companion
-     ↓
-Phone
-```
-
----
-
-## 🧊 Blender & 3D Control
-
-CHIDVI-556 also includes an integration path for controlling Blender programmatically.
-
-The intended architecture is:
-
-```text
-CHIDVI Agent
-     ↓
-Blender Control Plugin
-     ↓
-Local Authenticated Bridge
-     ↓
-Blender Add-on
-     ↓
-bpy / Blender Scene
-```
-
-The integration is designed for operations such as scene inspection, primitive creation, transforms, materials, lights, cameras, animation, modifiers, rendering, and saving `.blend` files.
-
-Destructive operations and arbitrary Python execution are intended to remain behind explicit safety controls.
-
----
-
-## 🎙️ Voice & Interaction
-
-Voice is a first-class interaction layer for CHIDVI-556.
-
-The system can combine conversational responses with meaningful action narration so the user can understand what the agent is doing without watching every internal step.
-
-The goal is not constant narration — only useful progress updates when an autonomous task is taking multiple steps.
-
----
-
-## 🛡️ Safety Principles
-
-Autonomy should remain useful **without becoming uncontrolled**.
-
-CHIDVI-556 follows boundaries such as:
-
-- Do not invent personal data.
+- Confirm permissions and review requests before enabling desktop, browser, or phone automation.
 - Do not bypass CAPTCHA, OTP, MFA, passwords, or access controls.
-- Do not silently perform high-consequence actions.
-- Require confirmation before sensitive or irreversible submissions where appropriate.
-- Do not submit graded assessments on behalf of the user.
-- Keep autonomous execution bounded.
-- Avoid recursive autonomous-tool invocation.
+- Use confirmation gates for sensitive, destructive, or irreversible operations.
+- Generated code and automated actions can fail; inspect their results instead of assuming success.
+- Keep secrets out of source control.
+- Treat long-horizon execution as experimental and supervised.
 
-Human confirmation remains part of the system whenever the consequences of an action warrant it.
+## 📌 Project status
 
----
-
-## 🏗️ System Architecture
-
-```text
-                         ┌──────────────────────┐
-                         │       CHIDVI UI      │
-                         └──────────┬───────────┘
-                                    │
-                         ┌──────────▼───────────┐
-                         │ Conversation / Voice │
-                         └──────────┬───────────┘
-                                    │
-                    ┌───────────────▼───────────────┐
-                    │       Agent / Orchestrator     │
-                    └───────────────┬───────────────┘
-                                    │
-              ┌─────────────────────┼─────────────────────┐
-              │                     │                     │
-        ┌─────▼─────┐        ┌──────▼──────┐       ┌─────▼─────┐
-        │   Memory  │        │    Tools    │       │  Planner  │
-        └───────────┘        └──────┬──────┘       └───────────┘
-                                    │
-                ┌───────────────────┼───────────────────┐
-                │                   │                   │
-          ┌─────▼─────┐       ┌─────▼─────┐       ┌────▼─────┐
-          │   Browser │       │   Android │       │ Blender  │
-          └───────────┘       └───────────┘       └──────────┘
-                                    │
-                              ┌─────▼─────┐
-                              │   Image   │
-                              │ Generation│
-                              └───────────┘
-```
-
----
-
-## 📁 Project Structure
-
-```text
-CHIDVI-556/
-├── actions/              # Executable agent actions
-├── core/                 # Agent, loaders and orchestration logic
-├── config/               # Runtime configuration
-├── memory/               # Persistent memory storage and manager
-├── plugins/              # Modular integrations and capabilities
-├── blender_addon/        # Blender-side integration
-├── generated_images/     # Generated image assets
-├── main.py               # Application entry point
-├── ui.py                 # User interface
-├── requirements.txt      # Python dependencies
-└── README.md             # Project documentation
-```
-
----
-
-## 🧩 Development Philosophy
-
-CHIDVI-556 is being built around a few core principles:
-
-**Modular** — capabilities should be replaceable and independently extensible.
-
-**Tool-driven** — the agent should interact with the real world through explicit tools.
-
-**Observable** — meaningful actions and outcomes should be inspectable.
-
-**Bounded** — autonomous execution must have limits and escape conditions.
-
-**Memory-aware** — useful context should persist instead of being rediscovered repeatedly.
-
-**Human-controlled** — the user should remain in control of sensitive decisions and irreversible actions.
-
-**Incremental** — each version should improve the architecture without pretending the research problem is already solved.
-
----
-
-## 🔭 Roadmap
-
-The broader direction includes:
-
-- More reliable long-horizon planning
-- Better observation and state tracking
-- Automatic failure recovery
-- Stronger task verification
-- Improved memory retrieval and consolidation
-- More capable browser/computer agents
-- Deeper Android and desktop integration
-- Richer Blender / 3D automation
-- Better cross-session task continuity
-- More robust agent evaluation
-
-The goal is to gradually move from **command execution → task execution → persistent autonomous workflows**.
-
----
-
-## 🧬 CHIDVI-555 → CHIDVI-556
-
-CHIDVI-555 established the foundation for the assistant.
-
-CHIDVI-556 focuses on extending that foundation toward a more autonomous architecture:
-
-```text
-CHIDVI-555
-Assistant + Tools + Personality
-            ↓
-CHIDVI-556
-Assistant + Memory + Tools + Planning + Observation
-            ↓
-Long-term direction
-Persistent Goal-Driven AI Operating Layer
-```
-
----
-
-## 📌 Current Status
-
-CHIDVI-556 is an **active, evolving research/development project**.
-
-Some components are production-like utilities, while others are experimental prototypes. The architecture is intentionally being developed in stages so individual capabilities can be tested, verified, and improved before increasing the level of autonomy.
-
-> **Build the capability. Verify it. Then make the agent more autonomous.**
-
----
-
-## ⚡ CHIDVI-556
-
-**A persistent AI command center evolving toward autonomous, tool-using, memory-aware intelligence.**
-
-
----
-
-## 🏗️ Autonomous App Builder
-
-CHIDVI-556 now includes an **App Builder** action that turns a natural-language product idea into a real full-stack web project.
-
-Example:
-
-> "Build a SaaS dashboard for AI resume analysis with authentication, uploads, analytics, and a responsive premium UI."
-
-The builder follows:
-
-```text
-Idea
- ↓
-Understand requirements
- ↓
-Ask blocking questions / credentials
- ↓
-Plan architecture + design system
- ↓
-Generate project files
- ↓
-Install dependencies
- ↓
-Build
- ↓
-Open in browser
- ↓
-Inspect UI + console errors
- ↓
-Repair bounded failures
- ↓
-Verify
- ↓
-Deliver
-```
-
-### What it does
-
-- Generates a dedicated project outside the CHIDVI repository.
-- Starts with a structured architecture and design plan.
-- Asks for missing information instead of guessing.
-- Handles credentials through the generated project's local `.env.local`.
-- Narrates meaningful progress through the existing CHIDVI voice/log pipeline.
-- Generates Next.js + TypeScript projects by default.
-- Runs `npm install` and `npm run build`.
-- Uses Playwright to open the real application.
-- Captures a real browser screenshot and checks console/page errors.
-- Uses a bounded repair loop instead of claiming success after a failed build.
-- Persists builder state under the generated project's `.chidvi/` directory so interrupted work can be resumed.
-- Intentionally pushes generated UI away from generic AI boilerplate and toward a product-specific design system.
-
-### Tool
-
-The auto-discovered action is:
-
-`app_builder`
-
-Supported actions:
-
-```text
-start   → create a new application
-resume  → continue after a blocking user answer
-status  → inspect an existing builder task
-cancel  → stop a builder task
-```
-
-If Playwright's Chromium binary is missing, the builder attempts a one-time local `playwright install chromium` bootstrap before verification.
-
+SANU07 is actively evolving. Some components are reusable utilities; others are prototypes that need real-environment testing. Build capabilities incrementally, verify results, and keep the user in control of sensitive decisions.
