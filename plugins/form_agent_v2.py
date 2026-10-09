@@ -1,4 +1,4 @@
-"""Memory-aware autonomous form agent prototype for SANU07."""
+"""Memory-aware autonomous form agent prototype for Zx."""
 from __future__ import annotations
 import io,json,re,threading,time,webbrowser
 from pathlib import Path
@@ -24,7 +24,7 @@ def _decide(img):
     from google import genai
     from google.genai import types
     if not _key(): return {'action':'ASK','text':'I need the Gemini API key to inspect the form.'}
-    prompt=f'''You are SANU07's browser execution agent.
+    prompt=f'''You are Zx's browser execution agent.
 TASK: {STATE['task']}
 URL: {STATE['url'] or '(current page)'}
 LONG-TERM MEMORY:\n{_mem()}

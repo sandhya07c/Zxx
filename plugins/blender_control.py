@@ -1,8 +1,8 @@
 """
-SANU07 Blender Control plugin.
+Zx Blender Control plugin.
 
-Drives a local Blender via the SANU07 bridge add-on
-(blender_addon/blender_sanu07_bridge.py). The add-on must be installed/enabled
+Drives a local Blender via the Zx bridge add-on
+(blender_addon/blender_zx_bridge.py). The add-on must be installed/enabled
 in Blender; this plugin talks to it over plain localhost HTTP+JSON with an
 HMAC signature — no MCP, no Claude Code dependency.
 
@@ -330,7 +330,7 @@ def run(parameters: dict, player=None, session_memory=None) -> str:
             STATE["last_error"] = h.get("error", "unreachable")
             return (f"Blender is not reachable on {_setting('bridge_host', '127.0.0.1')}:"
                     f"{_setting('bridge_port', 8147)}. Is Blender running with the "
-                    f"SANU07 bridge add-on enabled? Error: {h.get('error')}")
+                    f"Zx bridge add-on enabled? Error: {h.get('error')}")
         try:
             st = bridge.call("status", {})
         except BlenderBridgeError as e:
@@ -367,7 +367,7 @@ def _ask_confirm(player, op, params, bridge, detail) -> str | None:
     try:
         from core import confirm
     except ModuleNotFoundError:   # standalone self-check — no app to gate with
-        return ("I need the SANU07 interface to confirm this destructive Blender "
+        return ("I need the Zx interface to confirm this destructive Blender "
                 "operation before I run it, and it is not available here.")
     if confirm.pending_title():
         return ("I already have a confirmation on screen. Please press it first.")

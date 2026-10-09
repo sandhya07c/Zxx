@@ -1,6 +1,6 @@
 """
-_blender_bridge_client.py — shared HTTP+HMAC client for the SANU07
-Blender bridge add-on (blender_addon/blender_sanu07_bridge.py).
+_blender_bridge_client.py — shared HTTP+HMAC client for the Zx
+Blender bridge add-on (blender_addon/blender_zx_bridge.py).
 
 Internal shared helper (leading `_` in the filename means the plugin loader
 skips it — import it explicitly from blender_control.py). Never exposes a
@@ -24,7 +24,7 @@ def read_token() -> str:
     base = Path(os.environ.get("APPDATA", "")) / "Blender Foundation" / "Blender"
     try:
         for v in base.iterdir():
-            f = v / "scripts" / "SANU07_bridge_token.txt"
+            f = v / "scripts" / "zx_bridge_token.txt"
             if f.is_file():
                 return f.read_text(encoding="utf-8").strip()
     except Exception:
@@ -67,7 +67,7 @@ class BlenderBridge:
         body = json.dumps({"cmd": cmd, "args": args or {}}).encode("utf-8")
         headers = {
             "Content-Type": "application/json",
-            "X-SANU07-Sig": self._sign(body),
+            "X-ZX-Sig": self._sign(body),
         }
         # long commands (render, file ops, heavy scenes) need room to breathe
         if timeout is None:
@@ -80,7 +80,7 @@ class BlenderBridge:
             raise BlenderBridgeError(f"bridge unreachable: {e}")
         if r.status_code == 401:
             raise BlenderBridgeError("bridge rejected signature — token mismatch "
-                                     "(set the same token in SANU07 settings and "
+                                     "(set the same token in Zx settings and "
                                      "the bridge add-on)")
         if r.status_code != 200:
             raise BlenderBridgeError(f"bridge HTTP {r.status_code}: {r.text[:200]}")

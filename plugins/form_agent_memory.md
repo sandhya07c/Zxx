@@ -1,6 +1,6 @@
-# SANU07 Memory-Aware Form Agent
+# Zx Memory-Aware Form Agent
 
-The form agent should use SANU07's existing long-term memory system as its source of known user facts rather than creating a second memory database.
+The form agent should use Zx's existing long-term memory system as its source of known user facts rather than creating a second memory database.
 
 ## Workflow
 
