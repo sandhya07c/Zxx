@@ -173,7 +173,7 @@ def _parse_flights_with_gemini(
                 system_instruction=(
                     "You are a flight data extraction expert. "
                     "Extract flight information from raw webpage text. "
-                    "Return ONLY valid JSON — no CHIDVIdown, no explanation."
+                    "Return ONLY valid JSON — no Markdown, no explanation."
                 )
             ),
         )

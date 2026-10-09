@@ -1,4 +1,4 @@
-"""Agent action that exposes CHIDVI-556's autonomous web app builder."""
+"""Agent action that exposes SANU07's autonomous web app builder."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ TOOL = {
     "name": "app_builder",
     "description": (
         "Builds a complete full-stack web application from a natural-language request. "
-        "CHIDVI plans the product, asks only for blocking information or credentials, "
+        "SANU07 plans the product, asks only for blocking information or credentials, "
         "generates the codebase, installs dependencies, builds it, opens it in a real "
         "browser, checks the UI, repairs bounded failures, narrates progress, and "
         "returns the generated project path. Use action='start' for a new app, "

@@ -1,4 +1,4 @@
-"""CHIDVI image generation action powered by Gemini with live narration."""
+"""SANU07 image generation action powered by Gemini with live narration."""
 from __future__ import annotations
 import base64, json, os, sys, threading, time
 from pathlib import Path
@@ -20,7 +20,7 @@ def _api_key() -> str:
 
 def _safe_filename(filename: str = "") -> str:
     name = Path(filename).name.strip()
-    if not name: name = f"chidvi_image_{time.strftime('%Y%m%d_%H%M%S')}.png"
+    if not name: name = f"sanu07_image_{time.strftime('%Y%m%d_%H%M%S')}.png"
     if Path(name).suffix.lower() not in {".png", ".jpg", ".jpeg", ".webp"}: name += ".png"
     return name
 

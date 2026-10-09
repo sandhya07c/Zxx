@@ -1,4 +1,4 @@
-"""High-level long-horizon autonomous task entry point for CHIDVI-556."""
+"""High-level long-horizon autonomous task entry point for SANU07."""
 from __future__ import annotations
 
 from core.long_horizon_agent import LongHorizonAgent
@@ -7,7 +7,7 @@ PLUGIN = None
 
 TOOL = {
     "name": "autonomous_task",
-    "description": "Execute a bounded long-horizon objective using CHIDVI's real actions; plan one step, observe its result, and continue until verified.",
+    "description": "Execute a bounded long-horizon objective using SANU07's real actions; plan one step, observe its result, and continue until verified.",
     "parameters": {"type":"OBJECT","properties":{"objective":{"type":"STRING"},"max_steps":{"type":"INTEGER","description":"Maximum autonomous iterations, capped at 50."}},"required":["objective"]},
     "handler": None,
 }

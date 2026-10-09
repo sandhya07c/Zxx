@@ -41,7 +41,7 @@ class ProactiveEngine:
             and (now - self._last_triggered) >= self.check_cooldown
         )
 
-    def CHIDVI_triggered(self) -> None:
+    def SANU07_triggered(self) -> None:
         self._last_triggered = time.monotonic()
         self._rotation      += 1
 
