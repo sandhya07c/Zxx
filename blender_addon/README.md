@@ -1,6 +1,6 @@
-# CHIDVI-556 Blender Bridge add-on
+# SANU07 Blender Bridge add-on
 
-A tiny HTTP+JSON server that runs **inside Blender** so CHIDVI-556 (or anything
+A tiny HTTP+JSON server that runs **inside Blender** so SANU07 (or anything
 else on this machine) can drive 3D scenes through natural-language requests.
 
 - Localhost only (`127.0.0.1`), no CORS, no web UI.
@@ -15,19 +15,19 @@ python blender_addon/install_blender_addon.py
 ```
 
 or manually: Blender → Edit → Preferences → **Add-ons** → **Install…** → select
-`blender_chidvi_bridge.py` → enable **"CHIDVI 556 Blender Bridge"**.
+`blender_sanu07_bridge.py` → enable **"SANU07 Blender Bridge"**.
 
 Then launch Blender. The add-on prints:
 
 ```
-CHIDVI Bridge: ready on http://127.0.0.1:8147 (Blender X.Y.Z)
+SANU07 Bridge: ready on http://127.0.0.1:8147 (Blender X.Y.Z)
 ```
 
 ## Files
 
 | File | Purpose |
 |---|---|
-| `blender_chidvi_bridge.py` | The add-on (this is what you install) |
+| `blender_sanu07_bridge.py` | The add-on (this is what you install) |
 | `headless_driver.py` | Run the bridge in `blender -b` background mode |
 | `install_blender_addon.py` | Copy + enable the add-on in Blender |
 | `test_agent_task.py` | End-to-end agent test (Gemini plans, bridge executes) |
@@ -52,7 +52,7 @@ driver drains the queue on the main thread). Ctrl+C to stop.
 }
 ```
 
-Header `X-CHIDVI-Sig: <hex(hsac(key=token, data=body))>`.
+Header `X-SANU07-Sig: <hex(hsac(key=token, data=body))>`.
 
 `GET /health` returns `{"ok": true, "blender_version": "..."}` (unauthenticated,
 loopback only — used for connectivity probes).
@@ -83,16 +83,16 @@ achieve**: `render` returns `found` only when the image file exists on disk.
 On start the add-on writes a random token to:
 
 ```
-<APPDATA>\Blender Foundation\Blender\<ver>\scripts\CHIDVI_bridge_token.txt
+<APPDATA>\Blender Foundation\Blender\<ver>\scripts\SANU07_bridge_token.txt
 ```
 
-The CHIDVI-556 plugin reads that same file (via `plugins/_blender_bridge_client.py`)
+The SANU07 plugin reads that same file (via `plugins/_blender_bridge_client.py`)
 so no manual key handshake is required. If you set an explicit token in the
-add-on preferences, set the same value in the CHIDVI plugin settings.
+add-on preferences, set the same value in the SANU07 plugin settings.
 
 ## Rendering notes
 
 `render` is synchronous and can take seconds for high-sample frames; the
 `format` freezes the whole bridge for that period (nothing else queues during a
 render). Keep samples low (`samples: 32`) for interactive work, or set the
-output engine to EEVEE. The client in CHIDVI-556 gives `render` a 120 s timeout.
+output engine to EEVEE. The client in SANU07 gives `render` a 120 s timeout.

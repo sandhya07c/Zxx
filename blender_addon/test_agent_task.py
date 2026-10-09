@@ -25,7 +25,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _blender_bridge_client import BlenderBridge, BlenderBridgeError   # noqa: E402
 import blender_control as bc                                             # noqa: E402  (the plugin)
 
-OUT = Path(os.environ.get("CHIDVI_OUT", "D:/CHIDVI-test-output"))
+OUT = Path(os.environ.get("SANU07_OUT", "D:/SANU07-test-output"))
 OUT.mkdir(parents=True, exist_ok=True)
 
 

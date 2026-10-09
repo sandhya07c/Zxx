@@ -1,5 +1,5 @@
 """
-Headless driver for the CHIDVI bridge (blender -b --python headless_driver.py).
+Headless driver for the SANU07 bridge (blender -b --python blender_addon/headless_driver.py).
 
 Run Blender in background mode and keep serving the bridge so the plugin (or
 any local client) can drive it. The normal GUI path uses bpy.app.timers; in
@@ -18,15 +18,15 @@ import sys
 import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import blender_chidvi_bridge as bridge
+import blender_sanu07_bridge as bridge
 
 bridge.register()
 
-print("CHIDVI headless bridge running — Ctrl+C to stop.")
+print("SANU07 headless bridge running — Ctrl+C to stop.")
 try:
     while True:
         bridge.serve_once()
         time.sleep(0.02)
 except KeyboardInterrupt:
     bridge.stop_server()
-    print("CHIDVI headless bridge stopped.")
+    print("SANU07 headless bridge stopped.")

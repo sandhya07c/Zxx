@@ -1,14 +1,14 @@
 """
-CHIDVI-556 Blender Bridge add-on (Blender 3.x / 4.x / 5.x).
+SANU07 Blender Bridge add-on (Blender 3.x / 4.x / 5.x).
 
 A tiny localhost HTTP server INSIDE Blender that exposes a small, whitelisted
-JSON-RPC API so the CHIDVI-556 blender_control plugin can build/modify 3D
+JSON-RPC API so the SANU07 blender_control plugin can build/modify 3D
 scenes through natural-language requests.
 
 Why this and not Blender MCP
 ────────────────────────────
 The Blender MCP addon uses a WebSocket protocol wired to Claude Code's MCP
-framework. CHIDVI-556 has no MCP stack (and must not depend on Claude Code's
+framework. SANU07 has no MCP stack (and must not depend on Claude Code's
 private protocol). This addon speaks plain HTTP + JSON with a stdlib-only
 client, stays fully local, and every state-changing call is signed with an
 HMAC-SHA256 token.
@@ -27,7 +27,7 @@ Security model
 - Binds to 127.0.0.1 only. No CORS, no OPTIONS, no web UI.
 - Every /rpc call must carry a valid HMAC-SHA256 signature over the exact
   request body. The token is generated at startup (random) or set in the
-  add-on preferences; the same token must be set in the CHIDVI-556 plugin
+  add-on preferences; the same token must be set in the SANU07 plugin
   settings, or the generated token is auto-written to the Blender user
   "scripts" dir and the plugin's client auto-pairs with it.
 - Content-Type must be application/json (blocks HTML-form CSRF/DNS-rebinding
@@ -35,10 +35,10 @@ Security model
 - Only whitelisted named commands exist. execute_python is OFF by default
   and remains off unless explicitly enabled in the add-on preferences.
 - Render samples are hard-capped at 256; expensive renders additionally
-  need user confirmation on the CHIDVI-556 side.
+  need user confirmation on the SANU07 side.
 
-Install: Preferences > Add-ons > Install... > select blender_chidvi_bridge.py
-         then enable "CHIDVI 556 Blender Bridge".
+Install: Preferences > Add-ons > Install... > select blender_sanu07_bridge.py
+         then enable "SANU07 Blender Bridge".
 """
 
 import hashlib
@@ -52,8 +52,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import bpy  # noqa: F401  (this addon only ever runs inside Blender)
 
-ADDON_ID    = "chidvi_556_blender_bridge"
-ADDON_NAME  = "CHIDVI 556 Blender Bridge"
+ADDON_ID    = "blender_sanu07_bridge"
+ADDON_NAME  = "SANU07 Blender Bridge"
 VERSION     = (0, 1, 0)
 MAX_SAMPLES = 256
 DEFAULT_PORT = 8147          # NOT 9876 — that's Blender MCP's port.
@@ -112,7 +112,7 @@ def _default_render_path(scene) -> str:
     if not d:
         import tempfile
         d = tempfile.gettempdir()
-    return os.path.join(d, f"CHIDVI_render_{scene.name or 'scene'}.png")
+    return os.path.join(d, f"SANU07_render_{scene.name or 'scene'}.png")
 
 
 # ── commands (run on Blender's MAIN thread only) ─────────────────────────────
@@ -559,7 +559,7 @@ def cmd_boolean_modifier(a):
 def cmd_execute_python(a):
     if not _bs.execute_python:
         return _result(False, error="execute_python is disabled. Enable it in the "
-                                    "CHIDVI bridge add-on preferences to allow this.")
+                                    "SANU07 bridge add-on preferences to allow this.")
     code = (a.get("code") or "").strip()
     if not code:
         return _result(False, error="No code provided.")
@@ -599,7 +599,7 @@ _COMMANDS = {
 
 # ── HTTP layer: only QUEUES work for the main thread ─────────────────────────
 class _Handler(BaseHTTPRequestHandler):
-    server_version = "CHIDVI-Bridge/0.1"
+    server_version = "SANU07-Bridge/0.1"
 
     def _json(self, code, payload):
         body = json.dumps(payload, default=str).encode("utf-8")
@@ -644,7 +644,7 @@ class _Handler(BaseHTTPRequestHandler):
         if req != "/rpc":
             return self._json(404, {"success": False, "error": "not found"})
 
-        if not self._sig_ok(body, self.headers.get("X-CHIDVI-Sig", "")):
+        if not self._sig_ok(body, self.headers.get("X-SANU07-Sig", "")):
             return self._json(401, {"success": False,
                                     "error": "invalid or missing HMAC signature"})
 
@@ -698,13 +698,13 @@ def start_server():
     if _bs.running:
         return
     if bpy.app.background:
-        print("CHIDVI Bridge: headless mode — starting SYNCHRONOUS tag-in server. "
+        print("SANU07 Bridge: headless mode — starting SYNCHRONOUS tag-in server. "
               "Call serve_once() from a script loop to process requests.")
         _bs.background = True
         _bs.running = True
         _write_token_file()
         _bs.server = _build_server()
-        print(f"CHIDVI Bridge: ready on http://127.0.0.1:{_bs.port} "
+        print(f"SANU07 Bridge: ready on http://127.0.0.1:{_bs.port} "
               f"in background (sync) mode (Blender {bpy.app.version_string})")
         return
     _bs.background = False
@@ -712,15 +712,15 @@ def start_server():
     try:
         _bs.server = ThreadingHTTPServer(("127.0.0.1", _bs.port), _Handler)
     except OSError as e:
-        print(f"CHIDVI Bridge: cannot bind 127.0.0.1:{_bs.port} — {e}")
+        print(f"SANU07 Bridge: cannot bind 127.0.0.1:{_bs.port} — {e}")
         return
     _bs.running = True
     _write_token_file()
     if not timers.is_registered(_drain_jobs):
         timers.register(_drain_jobs)
     threading.Thread(target=_bs.server.serve_forever, daemon=True,
-                     name="chidvi-bridge").start()
-    print(f"CHIDVI Bridge: ready on http://127.0.0.1:{_bs.port} "
+                     name="SANU07-bridge").start()
+    print(f"SANU07 Bridge: ready on http://127.0.0.1:{_bs.port} "
           f"(Blender {bpy.app.version_string})")
 
 
@@ -729,7 +729,7 @@ def _build_server():
     try:
         return ThreadingHTTPServer(("127.0.0.1", _bs.port), _Handler)
     except OSError as e:
-        print(f"CHIDVI Bridge: cannot bind 127.0.0.1:{_bs.port} — {e}")
+        print(f"SANU07 Bridge: cannot bind 127.0.0.1:{_bs.port} — {e}")
         return None
 
 
@@ -741,7 +741,7 @@ def serve_once():
     global _henry_thread
     if _henry_thread is None and _bs.server is not None:
         _henry_thread = threading.Thread(target=_bs.server.serve_forever,
-                                         daemon=True, name="chidvi-http")
+                                         daemon=True, name="SANU07-http")
         _henry_thread.start()
     while True:
         try:
@@ -772,7 +772,7 @@ def _write_token_file():
     try:
         scripts = bpy.utils.user_resource("SCRIPTS")
         os.makedirs(scripts, exist_ok=True)
-        with open(os.path.join(scripts, "CHIDVI_bridge_token.txt"), "w") as f:
+        with open(os.path.join(scripts, "SANU07_bridge_token.txt"), "w") as f:
             f.write(_bs.token)
     except Exception:
         pass

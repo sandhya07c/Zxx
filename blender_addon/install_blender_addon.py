@@ -1,11 +1,11 @@
 """
-install_blender_addon.py — copy the CHIDVI bridge add-on into Blender's user
+install_blender_addon.py — copy the SANU07 bridge add-on into Blender's user
 addons dir and mark it enabled. Pure stdlib; run with your system Python:
 
     python blender_addon/install_blender_addon.py
 
 Prints where it copied the file and the expected port. You still enable the
-add-on in Blender (Preferences > Add-ons > search "CHIDVI") OR it auto-enables
+add-on in Blender (Preferences > Add-ons > search "SANU07") OR it auto-enables
 on next launch because we write prefs via Blender itself — see the
 `--no-enable` flag.
 """
@@ -17,7 +17,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-ADDON_SRC = Path(__file__).resolve().parent / "blender_chidvi_bridge.py"
+ADDON_SRC = Path(__file__).resolve().parent / "blender_sanu07_bridge.py"
 
 
 def user_addons_dir() -> Path:
@@ -73,7 +73,7 @@ def main() -> int:
     # Enable: feed a tiny script via --python-expr (Blender 3.0+).
     expr = (
         "import bpy, addon_utils;"
-        "mod=addon_utils.enable('chidvi_556_blender_bridge', default_set=True);"
+        "mod=addon_utils.enable('blender_sanu07_bridge', default_set=True);"
         f"print('ENABLED', mod);"
         "bpy.ops.wm.save_userpref()"
     )
