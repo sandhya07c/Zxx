@@ -25,7 +25,7 @@ PROFILE = {
     },
     "voice": {
         "provider": "elevenlabs",
-        "voice_id": os.getenv("SANU07_VOICE_WEDNESDAY", ""),
+        "voice_id": os.getenv("Zx_VOICE_WEDNESDAY", ""),
         "language": "en-US",
         "style": "cool, restrained, deadpan, deliberate",
         "rate": 0.94,

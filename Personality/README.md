@@ -1,4 +1,4 @@
-# SANU07 Personality System
+# Zx Personality System
 
 Persona files live directly in this folder. Each standalone persona is one Python
 file exporting a `PROFILE` dictionary containing interaction/behavior, voice,
@@ -21,7 +21,7 @@ UI widgets or layouts.
 from Personality import PersonalityManager
 
 manager = PersonalityManager(default="deadpool", intensity=0.95)
-prompt = manager.system_prompt(base_prompt="You are SANU07, a helpful AI assistant.")
+prompt = manager.system_prompt(base_prompt="You are Zx, a helpful AI assistant.")
 theme = manager.theme_config()
 voice = manager.voice_config()
 greeting = manager.greeting()
@@ -47,8 +47,8 @@ Each persona owns its ElevenLabs voice configuration in its own PROFILE. The run
 
 Set the corresponding environment variable locally (never commit the key or raw voice recordings):
 
-- `SANU07_VOICE_WEDNESDAY`
-- `SANU07_VOICE_TONY`
-- `SANU07_VOICE_DEADPOOL`
+- `Zx_VOICE_WEDNESDAY`
+- `Zx_VOICE_TONY`
+- `Zx_VOICE_DEADPOOL`
 
 Keep the ElevenLabs API key in `ELEVENLABS_API_KEY` in your local `.env` or environment. Voice IDs are not API secrets.
