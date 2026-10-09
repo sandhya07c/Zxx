@@ -47,8 +47,8 @@ Each persona owns its ElevenLabs voice configuration in its own PROFILE. The run
 
 Set the corresponding environment variable locally (never commit the key or raw voice recordings):
 
-- `Zx_VOICE_WEDNESDAY`
-- `Zx_VOICE_TONY`
-- `Zx_VOICE_DEADPOOL`
+- `ZX_VOICE_WEDNESDAY`
+- `ZX_VOICE_TONY`
+- `ZX_VOICE_DEADPOOL`
 
 Keep the ElevenLabs API key in `ELEVENLABS_API_KEY` in your local `.env` or environment. Voice IDs are not API secrets.
