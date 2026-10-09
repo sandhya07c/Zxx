@@ -1,4 +1,4 @@
-name: SANU07 App Builder Checks
+name: Zx App Builder Checks
 
 on:
   push:
