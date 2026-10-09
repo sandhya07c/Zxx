@@ -1,5 +1,5 @@
 """
-Speech-to-Text engines for CHIDVI XL.
+Speech-to-Text engines for SANU07 XL.
 
 Whisper  – offline transcription via faster-whisper (VAD-buffered)
 Vosk     – offline streaming transcription (lighter)

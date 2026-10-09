@@ -1,7 +1,7 @@
-"""Autonomous task orchestration for CHIDVI-556.
+"""Autonomous task orchestration for SANU07.
 
 This layer turns a high-level user objective into an execution loop. It is
-provider-agnostic: local CHIDVI actions/plugins and external MCP adapters can
+provider-agnostic: local SANU07 actions/plugins and external MCP adapters can
 register tools through the same interface.
 
 Safety model:

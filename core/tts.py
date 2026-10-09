@@ -1,5 +1,5 @@
 """
-Text-to-Speech engines for CHIDVI XL.
+Text-to-Speech engines for SANU07 XL.
 
 EdgeTTS     – free Microsoft TTS (internet required, no API key)
 Kokoro      – fully offline neural TTS (~330 MB model)
@@ -161,7 +161,7 @@ def _import_kokoro_pipeline():
         return _try_import()
     except Exception as first_err:
         err_msg = str(first_err)
-        if not any(CHIDVIer in err_msg for CHIDVIer in _KOKORO_COMPAT_ERRORS):
+        if not any(compat_marker in err_msg for compat_marker in _KOKORO_COMPAT_ERRORS):
             # Unrelated error (kokoro not installed, etc.)
             raise RuntimeError(
                 f"Kokoro import failed: {first_err}\n"
@@ -459,7 +459,7 @@ def create_tts_player(config: dict) -> TTSPlayer:
         if not voice_id:
             raise RuntimeError(
                 "ElevenLabs selected but the active personality has no voice_id. "
-                "Set its CHIDVI_VOICE_* environment variable."
+                "Set its SANU07_VOICE_* environment variable."
             )
 
         engine = ElevenLabsTTSEngine(api_key=api_key, voice_id=voice_id)

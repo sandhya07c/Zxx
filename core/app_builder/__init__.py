@@ -1,4 +1,4 @@
-"""CHIDVI-556 autonomous full-stack application builder."""
+"""SANU07 autonomous full-stack application builder."""
 
 from .engine import AppBuilder
 

@@ -1,5 +1,5 @@
 """
-Local LLM client for CHIDVI XL.
+Local LLM client for SANU07 XL.
 
 Supports two backends — selected via  "llm_provider"  in config/api_keys.json:
 
