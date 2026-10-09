@@ -53,7 +53,7 @@ The action and plugin layers are modular. Optional integrations may require thei
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/chidvielasparepalli/SAN07.git Zx
+git clone https://github.com/chidvielasparepalli/Zx.git
 cd Zx
 
 py -3.11 -m venv .venv
@@ -75,7 +75,7 @@ If PowerShell blocks environment activation, either enable scripts for your curr
 ### macOS / Linux
 
 ```bash
-git clone https://github.com/chidvielasparepalli/SAN07.git Zx
+git clone https://github.com/chidvielasparepalli/Zx.git
 cd Zx
 
 python3.11 -m venv .venv
@@ -113,7 +113,7 @@ The checked-in unit tests currently cover app-builder utility functions. These c
 ## 🧩 Project layout
 
 ```text
-SAN07/
+Zx/
 ├── actions/               # Callable actions and task helpers
 ├── core/                  # Runtime, model clients, orchestration, TTS/STT
 ├── config/                # Local runtime configuration and media assets
