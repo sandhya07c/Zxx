@@ -1,10 +1,10 @@
-# SANU07 Blender Integration Guide
+# Zx Blender Integration Guide
 
-This guide covers the optional Blender bridge included in SANU07. It uses a localhost HTTP service and signed JSON requests; it is separate from the main desktop app and requires Blender to be installed.
+This guide covers the optional Blender bridge included in Zx. It uses a localhost HTTP service and signed JSON requests; it is separate from the main desktop app and requires Blender to be installed.
 
-# 🧊 SANU07 Blender / 3D Integration
+# 🧊 Zx Blender / 3D Integration
 
-SANU07 can drive a local Blender instance to create and modify 3D scenes
+Zx can drive a local Blender instance to create and modify 3D scenes
 through natural-language requests. This is a **native plugin capability**, not a
 separate project and not a hardcoded model library: the AI agent plans each task,
 executes general Blender operations step by step, inspects the scene after each
@@ -13,7 +13,7 @@ step, and corrects failures — exactly as a human modeller would.
 ### Architecture
 
 ```text
-SANU07 AI Agent
+Zx AI Agent
    │   (perceives request → plans → selects the blender_control tool)
    ▼
 blender_control plugin         plugins/blender_control.py
@@ -22,7 +22,7 @@ blender_control plugin         plugins/blender_control.py
 _bridge client helper          plugins/_blender_bridge_client.py
    │   (localhost HTTP + JSON, HMAC-SHA256 signature)
    ▼
-Blender bridge add-on          blender_addon/blender_sanu07_bridge.py
+Blender bridge add-on          blender_addon/blender_zx_bridge.py
    │   (runs INSIDE Blender, whitelisted command table, main-thread timer)
    ▼
 Blender Python API (bpy)
@@ -33,7 +33,7 @@ Blender Python API (bpy)
 ### Why a dedicated bridge (not Blender MCP)
 
 Blender MCP's add-on speaks a private WebSocket protocol tied to Claude Code's MCP
-framework. SANU07 has no MCP stack and must not depend on Claude Code's
+framework. Zx has no MCP stack and must not depend on Claude Code's
 protocol. This bridge is a plain HTTP+JSON service on `127.0.0.1` using only the
 Python standard library on both sides, so it works anywhere Blender runs and
 stays fully local.
@@ -46,13 +46,13 @@ stays fully local.
    ```
    (copies the add-on into Blender's user scripts/addons and enables it, or
    just do it manually: Preferences → Add-ons → Install → pick
-   `blender_addon/blender_sanu07_bridge.py` → enable.)
+   `blender_addon/blender_zx_bridge.py` → enable.)
 
 2. **Launch Blender** (GUI is recommended; headless also works — see below).
    When the add-on starts it prints:
-   `SANU07 Bridge: ready on http://127.0.0.1:8147`
+   `Zx Bridge: ready on http://127.0.0.1:8147`
 
-3. **SANU07 finds it automatically.** The add-on writes a one-time HMAC
+3. **Zx finds it automatically.** The add-on writes a one-time HMAC
    token into Blender's user `scripts/` dir; the plugin reads the same file, so
    no manual key handshake is needed. The bridge is bound to `127.0.0.1` only.
 
@@ -131,17 +131,17 @@ The bridge serves two ways:
   the port is wrong. Enable the add-on and confirm the "ready on
   http://127.0.0.1:8147" line in the Blender console (or **Window → Toggle System
   Console**).
-- **401 / token mismatch** — delete the stale `SANU07_bridge_token.txt` in
+- **401 / token mismatch** — delete the stale `zx_bridge_token.txt` in
   Blender's `scripts/` dir, or set the same token in both places.
 - **"Cannot render, no camera"** — create a camera and set the scene's active
   camera (`create_camera` with `aim_at` handles this automatically).
-- **Blender MCP already on 9876** — keep the SANU07 bridge on 8147; no conflict.
+- **Blender MCP already on 9876** — keep the Zx bridge on 8147; no conflict.
 
 For the add-on's own documentation see `blender_addon/README.md`.
 
 🖥️ Computer Interaction
 
-Future versions of SANU07 are intended to interact with the computer environment.
+Future versions of Zx are intended to interact with the computer environment.
 
 Potential capabilities include:
 
@@ -160,7 +160,7 @@ Computer-control actions should operate inside defined permission and sandbox bo
 
 💻 Coding Intelligence
 
-SANU07 is intended to become capable of assisting with complete software-development workflows.
+Zx is intended to become capable of assisting with complete software-development workflows.
 
 Potential workflow:
 
@@ -219,7 +219,7 @@ Unverified information
 Verified results
 📊 Data Analysis
 
-SANU07 is intended to support general data workflows.
+Zx is intended to support general data workflows.
 
 Dataset
    ↓
@@ -246,7 +246,7 @@ Report generation
 Automated insights
 🧪 Experimentation & Hypothesis Generation
 
-An advanced research capability could allow SANU07 to generate and test hypotheses.
+An advanced research capability could allow Zx to generate and test hypotheses.
 
 Observation
      ↓
@@ -300,9 +300,9 @@ Controlling external devices
 Making irreversible changes
 🔐 Permission Model
 
-SANU07 should eventually support capability-based permissions.
+Zx should eventually support capability-based permissions.
 
-                    SANU07
+                    Zx
                          │
                   Permission Layer
                          │
@@ -317,7 +317,7 @@ The agent should never automatically assume unlimited access.
 
 🎨 User Interface
 
-The SANU07 interface is designed as a futuristic AI command center.
+The Zx interface is designed as a futuristic AI command center.
 
 The interface concept includes:
 
@@ -345,7 +345,7 @@ Phase 1 — SANU06 Foundation
  Memory foundation
  Plugin architecture
  Computer-related functionality
-Phase 2 — SANU07 Core
+Phase 2 — Zx Core
  Agent architecture
  Goal management
  Task planner
@@ -390,7 +390,7 @@ Phase 6 — Advanced AGI Research
 
 The long-term direction can be represented as:
 
-                        SANU07
+                        Zx
                             │
           ┌─────────────────┼─────────────────┐
           │                 │                 │
@@ -419,7 +419,7 @@ The long-term direction can be represented as:
                             └──────────► Repeat
 🧩 Technology Direction
 
-SANU07 is designed as a modular system rather than a single model.
+Zx is designed as a modular system rather than a single model.
 
 The architecture can combine:
 
@@ -451,7 +451,7 @@ The exact technologies may evolve as the research progresses.
 
 A simplified conceptual structure:
 
-SANU07/
+Zx/
 │
 ├── plugins/
 │   ├── calendar_control.py
@@ -475,7 +475,7 @@ SANU07/
 The repository will continue to evolve as new components are introduced.
 
 📈 Project Evolution
-                     SANU07
+                     Zx
                        │
                        ▼
                 ┌─────────────┐
@@ -485,7 +485,7 @@ The repository will continue to evolve as new components are introduced.
                        │
                        ▼
                 ┌─────────────┐
-                │ SANU07  │
+                │ Zx  │
                 │ AGI Research│
                 └──────┬──────┘
                        │
@@ -502,7 +502,7 @@ The repository will continue to evolve as new components are introduced.
                 └─────────────┘
 🧪 Research Principles
 
-SANU07 development follows several principles:
+Zx development follows several principles:
 
 1. Build Systematically
 
@@ -528,11 +528,11 @@ Important actions should remain subject to user permissions and approval.
 
 Current AI systems have significant limitations.
 
-SANU07 is therefore treated as an experimental research platform rather than proof that true AGI has been achieved.
+Zx is therefore treated as an experimental research platform rather than proof that true AGI has been achieved.
 
 ⚠️ Limitations
 
-SANU07 does not currently represent true Artificial General Intelligence.
+Zx does not currently represent true Artificial General Intelligence.
 
 Current AI systems can still experience:
 
@@ -545,11 +545,11 @@ Planning failures
 Incomplete world knowledge
 Poor long-horizon reliability
 
-The purpose of SANU07 is to research architectures that may improve these capabilities.
+The purpose of Zx is to research architectures that may improve these capabilities.
 
 🎯 First Major Milestone
 
-The first major SANU07 milestone is:
+The first major Zx milestone is:
 
 Build a reliable autonomous agent loop.
 
@@ -578,7 +578,7 @@ Verifying results
 Asking for approval when required
 Recording useful information
 
-This becomes the foundation for every future SANU07 capability.
+This becomes the foundation for every future Zx capability.
 
 🚀 Future
 
@@ -610,7 +610,7 @@ into a more capable general-purpose AI system.
 
 📊 Current Status
 PROJECT
-SANU07
+Zx
 
 TYPE
 AGI Research Prototype
@@ -631,7 +631,7 @@ STATUS
 🟡 ACTIVE DEVELOPMENT
 👨‍💻 Project
 
-SANU07
+Zx
 
 AI Companion • AGI Research Prototype
 
@@ -639,7 +639,7 @@ LEARN • BUILD • EXPLORE • EVOLVE
 
 ⚠️ Disclaimer
 
-SANU07 is an experimental research and engineering project.
+Zx is an experimental research and engineering project.
 
 It explores architectures, techniques, and software systems related to increasingly capable general-purpose AI.
 
