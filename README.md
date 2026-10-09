@@ -136,15 +136,15 @@ SAN07/
 The action name is `app_builder`. Its supported operations are `start`, `resume`, `status`, and `cancel`. Generated projects are created outside this repository; build verification may use Node.js/npm and Playwright/Chromium.
 
 Optional environment settings:
-- `Zx_BUILDER_MODEL` — model used by the app builder (default: `gemini-2.5-flash`).
-- `Zx_BUILDER_PORT` — local preview port (default: `3180`).
+- `ZX_BUILDER_MODEL` — model used by the app builder (default: `gemini-2.5-flash`).
+- `ZX_BUILDER_PORT` — local preview port (default: `3180`).
 - `GEMINI_API_KEY` — can supply the Gemini key to the builder when configured that way.
 
 Builder state and logs are stored under the generated project's `.zx/` directory.
 
 ### Personality voice IDs
 
-The optional ElevenLabs voices can be configured with `Zx_VOICE_WEDNESDAY`, `Zx_VOICE_TONY`, and `Zx_VOICE_DEADPOOL`. These are optional and only relevant when using those voice profiles with ElevenLabs configured.
+The optional ElevenLabs voices can be configured with `ZX_VOICE_WEDNESDAY`, `ZX_VOICE_TONY`, and `ZX_VOICE_DEADPOOL`. These are optional and only relevant when using those voice profiles with ElevenLabs configured.
 
 ### Android control
 
