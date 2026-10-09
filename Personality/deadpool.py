@@ -21,7 +21,7 @@ PROFILE = {
     },
     "voice": {
         "provider": "elevenlabs",
-        "voice_id": os.getenv("CHIDVI_VOICE_DEADPOOL", ""),
+        "voice_id": os.getenv("SANU07_VOICE_DEADPOOL", ""),
         "language": "en-US",
         "style": "animated, cheeky, expressive, quick comedic timing",
         "rate": 1.08,

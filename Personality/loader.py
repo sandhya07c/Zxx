@@ -24,7 +24,7 @@ def discover_personalities():
         if not _valid_id(path.stem):
             continue
         spec = importlib.util.spec_from_file_location(
-            f"_chidvi_persona_{path.stem}", path
+            f"_sanu07_persona_{path.stem}", path
         )
         if spec is None or spec.loader is None:
             continue

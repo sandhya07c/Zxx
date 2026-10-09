@@ -21,7 +21,7 @@ PROFILE = {
     },
     "voice": {
         "provider": "elevenlabs",
-        "voice_id": os.getenv("CHIDVI_VOICE_TONY", ""),
+        "voice_id": os.getenv("SANU07_VOICE_TONY", ""),
         "language": "en-US",
         "style": "confident, crisp, energetic, lightly sarcastic",
         "rate": 1.0,
