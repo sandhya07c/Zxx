@@ -1,4 +1,4 @@
-name: CHIDVI-556 App Builder Checks
+name: SANU07 App Builder Checks
 
 on:
   push:
