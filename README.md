@@ -166,3 +166,5 @@ Blender integration uses a local HTTP bridge with an HMAC signature. See [the Bl
 ## 📌 Project status
 
 Zx is actively evolving. Some components are reusable utilities; others are prototypes that need real-environment testing. Build capabilities incrementally, verify results, and keep the user in control of sensitive decisions.
+hehehehehehehe
+I'm done with this project ! 
